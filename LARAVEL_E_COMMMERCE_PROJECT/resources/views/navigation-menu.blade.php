@@ -12,6 +12,13 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+
+                <button class="relative p-2 rounded-md hover:bg-secondary transition-colors">
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                    <span class="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        0
+                    </span>
+                </button>
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="ms-3 relative">
