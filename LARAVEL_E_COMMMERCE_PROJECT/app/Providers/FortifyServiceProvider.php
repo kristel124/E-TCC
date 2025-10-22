@@ -17,6 +17,8 @@ use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
 use App\Http\Responses\LoginResponse;
+use App\Http\Responses\LogoutResponse;
+use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         // Bind our custom register response
         $this->app->instance(RegisterResponse::class, new CustomRegisterResponse());
+        $this->app->singleton(LogoutResponseContract::class, LogoutResponse::class);
     }
 
     /**

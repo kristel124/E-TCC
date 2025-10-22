@@ -38,15 +38,15 @@
 
     <!-- Products -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
-           aria-expanded="false" aria-controls="collapseProducts">
-            <i class="fas fa-cube" style="color: #975519;"></i>
-            <span class="ml-2">Products</span>
-        </a>
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
+        <a class="nav-link collapsed" href="{{ route('seller.categories.index') }}" data-toggle="collapse" data-target="#collapseProducts"
            aria-expanded="false" aria-controls="collapseProducts">
             <i class="fas fa-cube" style="color: #975519;"></i>
             <span class="ml-2">Categories</span>
+        </a>
+        <a class="nav-link collapsed" href="{{ route('seller.products.index') }}" data-toggle="collapse" data-target="#collapseProducts"
+           aria-expanded="false" aria-controls="collapseProducts">
+            <i class="fas fa-cube" style="color: #975519;"></i>
+            <span class="ml-2">Products</span>
         </a>
     </li>
 
@@ -71,22 +71,6 @@
         <a class="nav-link" href="#">
             <i class="fas fa-users" style="color: #975519;"></i>
             <span class="ml-2">Customers</span>
-        </a>
-    </li>
-
-    <!-- Analytics -->
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-chart-line" style="color: #975519;"></i>
-            <span class="ml-2">Analytics</span>
-        </a>
-    </li>
-
-    <!-- Settings -->
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-cog" style="color: #975519;"></i>
-            <span class="ml-2">Settings</span>
         </a>
     </li>
 

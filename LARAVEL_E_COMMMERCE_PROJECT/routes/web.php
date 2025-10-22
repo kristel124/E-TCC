@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,6 +18,8 @@ Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
 });**/
+
+
 
 Route::get('/dashboard', function () {
     if (Auth::check()) {
@@ -48,9 +52,15 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(f
 // ---------------- SELLER ROUTES ----------------
 Route::middleware(['auth', 'role:seller'])->prefix('seller')->name('seller.')->group(function () {
     Route::view('/dashboard', 'seller.dashboard')->name('seller_dashboard');
+    // Category Routes (CRUD)
+    Route::resource('categories', CategoryController::class);
+
+    // Product Routes (CRUD)
+    Route::resource('products', ProductController::class);
 });
 
 // ---------------- ADMIN ROUTES ----------------
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::view('/dashboard', 'admin.admin_dashboard')->name('admin_dashboard');
+   // Route::view('/dashboard', 'admin.admin_dashboard')->name('admin_dashboard');
+   Route::view('/dashboard', 'seller.dashboard')->name('seller_dashboard');
 });

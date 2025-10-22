@@ -43,6 +43,7 @@
             </div>
         </div>
 
+ 
         {{-- Low Stock Products --}}
         <div class="bg-[#FDFDFC] border border-[#e3e3e0] rounded-2xl shadow-md p-5 hover:shadow-lg transition">
             <div class="flex justify-between items-center">
@@ -60,6 +61,7 @@
                 </div>
             </div>
         </div>
+
 
         {{-- New Customers --}}
         <div class="bg-[#FDFDFC] border border-[#e3e3e0] rounded-2xl shadow-md p-5 hover:shadow-lg transition">
