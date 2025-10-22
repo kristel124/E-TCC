@@ -3,7 +3,7 @@
     class="navbar-nav sidebar accordion"
     id="accordionSidebar"
     style="
-        background: linear-gradient(180deg, #f3e3d5 0%, #e5ba91 100%);
+        background: #f2dac5ff; 
         width: 280px !important;
         min-width: 280px !important;
         color: #1b1b18;
@@ -43,13 +43,11 @@
             <i class="fas fa-cube" style="color: #975519;"></i>
             <span class="ml-2">Products</span>
         </a>
-        <div id="collapseProducts" class="collapse" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
-            <div class="collapse-inner">
-                <a class="collapse-item" href="#">All Products</a>
-                <a class="collapse-item" href="#">Add Product</a>
-                <a class="collapse-item" href="#">Categories</a>
-            </div>
-        </div>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
+           aria-expanded="false" aria-controls="collapseProducts">
+            <i class="fas fa-cube" style="color: #975519;"></i>
+            <span class="ml-2">Categories</span>
+        </a>
     </li>
 
     <!-- Orders -->

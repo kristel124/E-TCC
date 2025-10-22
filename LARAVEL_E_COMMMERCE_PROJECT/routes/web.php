@@ -47,7 +47,7 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(f
 
 // ---------------- SELLER ROUTES ----------------
 Route::middleware(['auth', 'role:seller'])->prefix('seller')->name('seller.')->group(function () {
-    Route::view('/dashboard', 'seller.seller_dashboard')->name('seller_dashboard');
+    Route::view('/dashboard', 'seller.dashboard')->name('seller_dashboard');
 });
 
 // ---------------- ADMIN ROUTES ----------------

@@ -15,16 +15,10 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
         <style>
-            :root {
-                --color-primary-bg: #FDFDFC;
-                --color-header-bg: #ffffff; 
-                --color-primary-text: #1b1b18;
-                --color-border-subtle: #e3e3e0;
-                --color-accent-peach: #FFC89C;
-                --color-secondary-grey: #6b7280;
-            }
             body {
-                font-family: 'Instrument Sans', sans-serif;
+                background: linear-gradient(180deg, #f3e3d5 0%, #f9f3ee 100%);
+                font-family: 'Poppins', sans-serif;
+                color: #1b1b18;
             }
         </style>
     @endif
@@ -50,15 +44,15 @@
         }
     </style>
 </head>
-<body class="bg-[var(--color-primary-bg)] text-[var(--color-primary-text)] min-h-screen flex antialiased">
+<body class="bg-[#f9f3ee] text-[var(--color-primary-text)] min-h-screen flex antialiased">
     
     <div id="wrapper" class="flex flex-grow"> 
         
         @include('seller.sidebar')
 
-        <div id="content-wrapper" class="flex flex-col flex-grow">
+        <div id="content-wrapper" class=" flex flex-col flex-grow">
 
-            <main id="content" class="flex-grow p-4 sm:p-6 lg:p-8">
+            <main id="content" class="bg-[#f9f3ee] flex-grow p-4 sm:p-6 lg:p-8">
                 <div class="container-fluid">
                     @yield('content')
                 </div>
