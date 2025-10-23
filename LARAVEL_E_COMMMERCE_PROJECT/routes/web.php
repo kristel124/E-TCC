@@ -22,31 +22,31 @@ Route::get('/', function () {
 
 
 Route::get('/dashboard', function () {
-    if (Auth::check()) {
-        $user = Auth::user();
-        
-        if ($user->user_type === 'user') {
-            return redirect()->route('user.user_page');
-        } elseif ($user->user_type === 'seller') {
-            return redirect()->route('seller.seller_dashboard');
-        } elseif ($user->user_type === 'admin') {
-            return redirect()->route('admin.admin_dashboard');
-        }
-        
-        
-        // Default fallback if no match
-        return redirect('/login')->with('error', 'Invalid user type or role.');
+    if (!Auth::check()) {
+        return redirect('/login');
     }
-    
-    // If not logged in, redirect to login
-    return redirect('/login');
-})->middleware('auth');
+
+    $user = Auth::user();
+
+    switch ($user->user_type) {
+        case 'admin':
+            return redirect()->route('admin.admin_dashboard');
+        case 'seller':
+            return redirect()->route('seller.seller_dashboard');
+        case 'user':
+            return redirect()->route('user.user_page');
+        default:
+            return redirect('/login')->with('error', 'Invalid user type.');
+    }
+})->middleware('auth')->name('dashboard'); // ✅ THIS LINE is critical
+
 
 // ---------------- USER ROUTES ----------------
-Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
-    Route::view('/page', 'user.user_page')->name('user_page');
-    // Optional: Add a dashboard route if needed
-    // Route::view('/dashboard', 'user.user_dashboard')->name('user_dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user_page', function () {
+        $user = Auth::user();
+        return view('user.user_page', compact('user'));
+    })->name('user.user_page');
 });
 
 // ---------------- SELLER ROUTES ----------------
