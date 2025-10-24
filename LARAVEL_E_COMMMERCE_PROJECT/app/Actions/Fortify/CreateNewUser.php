@@ -36,8 +36,6 @@ class CreateNewUser implements CreatesNewUsers
             'gender' => ['required_if:user_type,user', 'nullable', 'string', 'in:male,female'],
             'birth_date' => ['required_if:user_type,user', 'nullable', 'date'],
 
-            // Seller-specific
-            'shop_name' => ['required_if:user_type,seller', 'nullable', 'string', 'max:255'],
         ])->validate();
         
         $isFirstUser  = User::count() === 0;
@@ -49,7 +47,6 @@ class CreateNewUser implements CreatesNewUsers
             'phone' => $input['phone'] ?? null,
             'gender' => $input['gender'] ?? null,
             'birth_date' => $input['birth_date'] ?? null,
-            'shop_name' => $input['shop_name'] ?? null,
             'password' => Hash::make($input['password']),
         ]);
     }

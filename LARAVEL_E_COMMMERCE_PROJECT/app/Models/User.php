@@ -29,7 +29,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'shop_name',
         'gender',
         'birth_date',
         'user_type',

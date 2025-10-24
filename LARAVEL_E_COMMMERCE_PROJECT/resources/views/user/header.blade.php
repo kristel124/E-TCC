@@ -1,5 +1,5 @@
 <header>
-    <nav class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-4 sm:px-8 py-4 bg-[#f4ede4]/95 backdrop-blur-md shadow-md transition">
+    <nav class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 py-4 bg-[#f4ede4]/95 backdrop-blur-md shadow-md transition">
 
         <h1 class="text-2xl font-bold tracking-wide text-[#6b6159] mr-6">TC<span class="text-[#a58c63]">C</span></h1>
 

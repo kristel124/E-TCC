@@ -3,7 +3,7 @@
         <x-authentication-card>
             <x-slot name="logo">
                 <x-authentication-card-logo />
-                <h2 align-text-center>Register Account</h2>
+                <h2 class="text-center text-xl font-semibold mt-2">Register Account</h2>
             </x-slot>
 
             <x-validation-errors class="mb-4" />
@@ -31,20 +31,14 @@
                         :value="old('name')" required autofocus autocomplete="name" />
                 </div>
 
-                {{-- Seller Only --}}
-                <div id="shop_name_field" class="mt-4 hidden">
-                    <x-label for="shop_name" value="{{ __('Shop Name') }}" />
-                    <x-input id="shop_name" class="block mt-1 w-full" type="text" name="shop_name"
-                        :value="old('shop_name')" autocomplete="organization" />
-                </div>
-
-                {{-- User Only --}}
+                {{-- User and Seller --}}
                 <div id="phone_field" class="mt-4 hidden">
                     <x-label for="phone" value="{{ __('Phone Number') }}" />
                     <x-input id="phone" class="block mt-1 w-full" type="text" name="phone"
                         :value="old('phone')" />
                 </div>
 
+                {{-- User Only --}}
                 <div id="gender_field" class="mt-4 hidden">
                     <x-label for="gender" value="{{ __('Gender') }}" />
                     <select id="gender" name="gender" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
@@ -117,18 +111,28 @@
                 </div>
             </form>
 
-            {{-- JS Script --}}
+            {{-- JavaScript --}}
             <script>
-                document.getElementById('user_type').addEventListener('change', function() {
-                    const type = this.value;
-                    const isUser = type === 'user';
-                    const isSeller = type === 'seller';
+                document.addEventListener('DOMContentLoaded', function() {
+                    const userTypeSelect = document.getElementById('user_type');
+                    const phoneField = document.getElementById('phone_field');
+                    const genderField = document.getElementById('gender_field');
+                    const birthdateField = document.getElementById('birthdate_field');
 
-                    document.getElementById('shop_name_field').classList.toggle('hidden', !isSeller);
-                    document.getElementById('phone_field').classList.toggle('hidden', !isUser && !isSeller);
-                    document.getElementById('gender_field').classList.toggle('hidden', !isUser);
-                    document.getElementById('birthdate_field').classList.toggle('hidden', !isUser);
+                    function toggleFields() {
+                        const type = userTypeSelect.value;
+                        const isUser = type === 'user';
+                        const isSeller = type === 'seller';
+
+                        phoneField.classList.toggle('hidden', !isUser && !isSeller);
+                        genderField.classList.toggle('hidden', !isUser);
+                        birthdateField.classList.toggle('hidden', !isUser);
+                    }
+
+                    userTypeSelect.addEventListener('change', toggleFields);
+                    toggleFields(); // Run once on page load
                 });
             </script>
-    </x-authentication-card>
+        </x-authentication-card>
+    </div>
 </x-guest-layout>
