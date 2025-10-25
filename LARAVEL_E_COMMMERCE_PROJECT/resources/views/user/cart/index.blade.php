@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Your Cart | LuxeBags</title>
+  <title>Your Cart | Tcc</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#f8f5f0] text-[#2e2b26] font-sans">
 
 <div class="container mx-auto px-6 py-20">
   <div class="flex justify-between items-center mb-6">
-    <h2 class="text-3xl font-bold">Cart</h2>
+    <h2 class="text-3xl font-bold">Shopping Cart</h2>
 
     <!-- Back Button -->
     <a href="{{ route('user.user_page') }}" 

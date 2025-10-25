@@ -1,4 +1,3 @@
-<!-- Seller Sidebar - Neutral Beige Theme -->
 <ul
     class="navbar-nav sidebar accordion"
     id="accordionSidebar"
@@ -16,7 +15,7 @@
     "
 >
 
-    <!-- Brand -->
+
     <a class="sidebar-brand d-flex align-items-center justify-content-center"
         href="#"
         style="padding: 20px 0; text-decoration: none; color: #1b1b18;">
