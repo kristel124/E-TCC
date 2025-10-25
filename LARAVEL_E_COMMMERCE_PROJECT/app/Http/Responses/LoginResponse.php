@@ -18,7 +18,7 @@ class LoginResponse implements LoginResponseContract
             case 'user':
                 return redirect()->intended(route('user.user_page'));
             default:
-                return redirect()->intended(route('dashboard')); // now this exists!
+                return redirect()->intended(route('dashboard')); 
         }
 
     }

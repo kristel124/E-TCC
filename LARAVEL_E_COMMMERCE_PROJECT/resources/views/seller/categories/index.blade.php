@@ -3,7 +3,7 @@
 @section('content')
 <div class="p-4 sm:p-6 lg:p-8">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-semibold text-[#1b1b18]">🗂️ Categories</h2>
+        <h2 class="text-2xl font-semibold text-[#1b1b18]">Categories</h2>
         <a href="{{ route('seller.categories.create') }}"
            class="bg-[#FFC89C] text-[#1b1b18] font-medium px-5 py-2.5 rounded-xl hover:bg-[#ffb97c] transition">
             + Add Category

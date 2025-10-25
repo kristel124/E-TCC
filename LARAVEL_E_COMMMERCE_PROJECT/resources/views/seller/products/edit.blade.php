@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="max-w-4xl mx-auto bg-[#FDFDFC] border border-[#e3e3e0] shadow-md rounded-2xl p-8">
-    <h2 class="text-2xl font-semibold text-[#1b1b18] mb-6">✏️ Edit Product</h2>
+    <h2 class="text-2xl font-semibold text-[#1b1b18] mb-6"> Edit Product</h2>
 
     <form action="{{ route('seller.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf

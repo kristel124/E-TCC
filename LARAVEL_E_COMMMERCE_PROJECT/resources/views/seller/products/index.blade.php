@@ -32,7 +32,7 @@
                     {{ $category->name }}
                 </option>
             @endforeach
-        </select>
+        </select>-
         
         <button type="submit"
                 class="px-5 py-2.5 rounded-xl text-white font-semibold transition flex-shrink-0"

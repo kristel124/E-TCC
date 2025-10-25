@@ -3,83 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome | LuxeBags</title>
+  <title>Tcc | Shop</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#f8f5f0] text-[#2e2b26] font-sans">
 
   <!-- Navbar -->
-  <nav class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 py-4 bg-[#f4ede4]/95 backdrop-blur-md shadow-md transition">
-    <h1 class="text-2xl font-bold tracking-wide text-[#6b6159] mr-6">TC<span class="text-[#a58c63]">C</span></h1>
+  <nav class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 py-4 bg-[#f4ede4]/95 backdrop-blur-md shadow-md">
+    <h1 class="text-2xl font-bold tracking-wide text-[#6b6159]">
+      TC<span class="text-[#a58c63]">C</span>
+    </h1>
 
-    <div class="flex items-center gap-4 lg:ml-6">
-      <!-- Search -->
-      <form action="#" method="GET" class="flex">
-        <input type="text" name="query" placeholder="Search products..."
-          class="px-3 py-2 text-sm rounded-l-lg border border-[#e3e3e0] bg-[#fffaf5] text-[#1b1b18] focus:border-[#c6a77b] focus:ring-1 focus:ring-[#e3c292] outline-none w-64">
-        <button type="submit" class="bg-[#975519] text-white px-4 py-2 rounded-r-lg hover:bg-[#c87a2e] transition text-sm">
+    <div class="flex items-center gap-4">
+      <!-- Search Bar -->
+      <form action="{{ route('user.user_page') }}" method="GET" class="flex">
+        <input 
+          type="text" 
+          name="search" 
+          value="{{ request('search') }}"
+          placeholder="Search bags..."
+          class="px-3 py-2 text-sm rounded-l-lg border border-[#d6ccc2] bg-[#fffaf5] focus:ring-[#c6a77b] focus:border-[#c6a77b] outline-none w-64"
+        >
+        <button 
+          type="submit" 
+          class="bg-[#975519] text-white px-4 py-2 rounded-r-lg hover:bg-[#c87a2e] transition text-sm">
           Search
         </button>
       </form>
 
       <!-- Cart -->
-      <ul class="nav-item flex items-center">
-        <a href="#" class="nav-link text-[#6b6159] hover:text-[#c87a2e] flex items-center">
-          <img src="{{ asset('images/icons8-cart-24.png') }}" alt="Cart" class="w-6 h-6 object-contain hover:scale-110 transition-transform">
-        </a>
-      </ul>
+      <a href="{{ route('user.cart.index') }}" class="flex items-center hover:text-[#c87a2e]">
+        <img src="{{ asset('images/icons8-cart-24.png') }}" alt="Cart" class="w-6 h-6 hover:scale-110 transition-transform">
+      </a>
 
       <!-- User -->
-      <ul class="flex items-center gap-4 text-base font-medium">
-        @auth
-          <li class="text-[#6b6159] hidden sm:block">Welcome, {{ Auth::user()->name }}!</li>
-        @endauth
-      </ul>
+      @auth
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button 
+          type="submit" 
+          class="bg-[#975519] text-white px-3 py-2 rounded hover:bg-[#c87a2e] text-sm transition">
+          {{ Auth::user()->name }}
+        </button>
+      </form>
+      @endauth
     </div>
   </nav>
 
-  <!-- Featured Products -->
-  <section id="shop" class="px-10 md:px-20 py-24 bg-[#f4ede4] mt-16">
+  <!-- Shop Section -->
+  <section id="shop" class="px-8 md:px-20 py-24 mt-16 bg-[#f4ede4]">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
       <div>
-        <h3 class="text-3xl font-bold text-left mb-2">Bags That Speak Your Style</h3>
+        <h3 class="text-3xl font-bold mb-2">Bags That Speak Your Style</h3>
         <p class="text-[#5a5245] text-base">Because your carry should be as bold as you are.</p>
       </div>
 
-      <!-- Filter/Sort Dropdown -->
+      <!-- Sorting -->
       <form method="GET" class="mt-4 md:mt-0">
         <label for="sort" class="text-sm text-[#5a5245] mr-2 font-medium">Sort by:</label>
-        <select id="sort" name="sort" class="border border-[#d6ccc2] bg-white text-[#3b342e] text-sm rounded-lg px-3 py-2 focus:ring-[#c6a77b] focus:border-[#c6a77b]">
-          <option value="latest">Latest</option>
-          <option value="price_low_high">Price: Low to High</option>
-          <option value="price_high_low">Price: High to Low</option>
+        <select id="sort" name="sort" onchange="this.form.submit()"
+          class="border border-[#d6ccc2] bg-white text-[#3b342e] text-sm rounded-lg px-3 py-2 focus:ring-[#c6a77b] focus:border-[#c6a77b]">
+          <option value="latest" {{ request('sort') === 'latest' ? 'selected' : '' }}>Latest</option>
+          <option value="price_low_high" {{ request('sort') === 'price_low_high' ? 'selected' : '' }}>Price: Low to High</option>
+          <option value="price_high_low" {{ request('sort') === 'price_high_low' ? 'selected' : '' }}>Price: High to Low</option>
         </select>
       </form>
     </div>
 
     <!-- Product Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-      @foreach ([
-        ['name' => 'Classic Leather Tote', 'price' => '$89.99', 'image' => 'images/Screenshot 2025-10-22 014139.png'],
-        ['name' => 'Minimalist Crossbody', 'price' => '$74.99', 'image' => 'images/Screenshot 2025-10-22 014433.png'],
-        ['name' => 'Chic Handbag', 'price' => '$99.99', 'image' => 'images/tote-bags-fall-2022-back-to-work-habituallychic-004.jpeg'],
-        ['name' => 'Everyday Tote', 'price' => '$64.99', 'image' => 'images/3bags.png'],
-        ['name' => 'Premium Shoulder Bag', 'price' => '$119.99', 'image' => 'images/shoulderbag.png'],
-        ['name' => 'Elegant Clutch', 'price' => '$59.99', 'image' => 'images/clutch.png'],
-        ['name' => 'Travel Duffel', 'price' => '$129.99', 'image' => 'images/duffel.png'],
-        ['name' => 'Casual Sling Bag', 'price' => '$54.99', 'image' => 'images/sling.png']
-      ] as $product)
+      @forelse ($products as $product)
         <div class="bg-white rounded-2xl shadow hover:shadow-lg transition flex flex-col">
           <div class="p-5 flex-grow">
-            <img src="{{ asset($product['image']) }}" alt="{{ $product['name'] }}" class="rounded-xl w-full h-64 object-cover mb-4">
+            @if($product->image)
+              <img src="{{ asset('storage/' . $product->image) }}" 
+                   alt="{{ $product->name }}" 
+                   class="rounded-xl w-full h-64 object-cover">
+            @else
+              <img src="{{ asset('images/placeholder-bag.png') }}" 
+                   alt="No image" 
+                   class="rounded-xl w-full h-64 object-cover opacity-60">
+            @endif
           </div>
-          <div class="p-5 border-t border-[#eee] mt-auto">
-            <h4 class="font-semibold text-lg">{{ $product['name'] }}</h4>
-            <p class="text-[#5a5245] mt-1 mb-3">{{ $product['price'] }}</p>
-            <button class="w-full bg-[#a58c63] text-white px-4 py-2 rounded-xl hover:bg-[#8d7753] transition">Add to Cart</button>
+
+          <div class="p-5 border-t border-[#eee] flex flex-col items-start">
+            <h4 class="font-semibold text-lg truncate w-full">{{ $product->name }}</h4>
+            <p class="text-[#5a5245] mt-1 mb-3">₱{{ number_format($product->price, 2) }}</p>
+
+            <!-- Add to Cart Form -->
+            <form action="{{ route('user.cart.add') }}" method="POST" class="w-full">
+              @csrf
+              <input type="hidden" name="product_id" value="{{ $product->id }}">
+              <button 
+                type="submit" 
+                class="w-full bg-[#a58c63] text-white px-4 py-2 rounded-xl hover:bg-[#8d7753] transition text-sm">
+                Add to Cart
+              </button>
+            </form>
           </div>
         </div>
-      @endforeach
+      @empty
+        <p class="text-[#5a5245]">No products available yet.</p>
+      @endforelse
     </div>
   </section>
 

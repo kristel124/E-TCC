@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="max-w-3xl mx-auto bg-[#FDFDFC] border border-[#e3e3e0] shadow-md rounded-2xl p-8">
-    <h2 class="text-2xl font-semibold text-[#1b1b18] mb-6">✏️ Edit Category</h2>
+    <h2 class="text-2xl font-semibold text-[#1b1b18] mb-6"> Edit Category</h2>
 
     <form action="{{ route('seller.categories.update', $category->id) }}" method="POST">
         @csrf

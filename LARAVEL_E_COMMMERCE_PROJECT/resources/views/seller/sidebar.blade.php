@@ -18,7 +18,7 @@
 
     <!-- Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center"
-        href="{{ route('seller.seller_dashboard') }}"
+        href="#"
         style="padding: 20px 0; text-decoration: none; color: #1b1b18;">
         <div class="sidebar-brand-icon">
             <i class="fas fa-store fa-lg" style="color: #975519;"></i>
