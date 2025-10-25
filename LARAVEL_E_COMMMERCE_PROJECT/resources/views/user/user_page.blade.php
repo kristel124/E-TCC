@@ -51,7 +51,7 @@
   </nav>
 
   <!-- Shop Section -->
-  <section id="shop" class="px-8 md:px-20 py-24 mt-16 bg-[#f4ede4]">
+  <section id="shop" class="px-8 md:px-20 py-24 mt-24 bg-[#f4ede4]">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
       <div>
         <h3 class="text-3xl font-bold mb-2">Bags That Speak Your Style</h3>
@@ -74,7 +74,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
       @forelse ($products as $product)
         <div class="bg-white rounded-2xl shadow hover:shadow-lg transition flex flex-col">
-          <div class="p-5 flex-grow">
+          <div class="p-5">
             @if($product->image)
               <img src="{{ asset('storage/' . $product->image) }}" 
                    alt="{{ $product->name }}" 
@@ -86,11 +86,17 @@
             @endif
           </div>
 
-          <div class="p-5 border-t border-[#eee] flex flex-col items-start">
+          <div class="p-5 border-t border-[#eee] flex flex-col gap-3">
             <h4 class="font-semibold text-lg truncate w-full">{{ $product->name }}</h4>
-            <p class="text-[#5a5245] mt-1 mb-3">₱{{ number_format($product->price, 2) }}</p>
+            <p class="text-[#5a5245]">₱{{ number_format($product->price, 2) }}</p>
 
-            <!-- Add to Cart Form -->
+            <!-- View Details Button -->
+            <a href="#" 
+               class="w-full text-center bg-[#c87a2e] text-white py-2 rounded-xl hover:bg-[#a55d1e] transition text-sm">
+              View Details
+            </a>
+
+            <!-- Add to Cart Button -->
             <form action="{{ route('user.cart.add') }}" method="POST" class="w-full">
               @csrf
               <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -103,11 +109,12 @@
           </div>
         </div>
       @empty
-        <p class="text-[#5a5245]">No products available yet.</p>
+        <p class="text-[#5a5245] col-span-full">No products available yet.</p>
       @endforelse
     </div>
   </section>
 
   @include('components.footer')
+
 </body>
 </html>
