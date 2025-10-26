@@ -1,138 +1,141 @@
-<x-guest-layout>
-    <div class="auth-card">
-        <x-authentication-card>
-            <x-slot name="logo">
-                <x-authentication-card-logo />
-                <h2 class="text-center text-xl font-semibold mt-2">Register Account</h2>
-            </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Tcc Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f5f1eb] text-[#2e2b26] font-sans flex items-center justify-center min-h-screen">
 
-            <x-validation-errors class="mb-4" />
+    <div class="w-full max-w-lg bg-[#fffaf5] p-8 rounded-xl shadow-lg">
+        
+        {{-- Logo and Title --}}
+        <div class="text-center mb-6">
+            <h2 class="text-xl font-semibold mt-2 text-[#975519]">Register Account</h2>
+        </div>
 
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
+        {{-- Validation Errors --}}
+        <x-validation-errors class="mb-4" />
 
-                {{-- User Type --}}
-                <div class="mt-4">
-                    <x-label for="user_type" value="{{ __('User Type') }}" />
-                    <select id="user_type" name="user_type" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm" required>
-                        <option value="">Select User Type</option>
-                        <option value="user" {{ old('user_type') === 'user' ? 'selected' : '' }}>User</option>
-                        <option value="seller" {{ old('user_type') === 'seller' ? 'selected' : '' }}>Seller</option>
-                    </select>
-                    @error('user_type')
-                        <span class="text-red-600 text-sm">{{ $message }}</span>
-                    @enderror
-                </div>
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-                {{-- Common Fields --}}
-                <div class="mt-4">
-                    <x-label for="name" value="{{ __('Name') }}" />
-                    <x-input id="name" class="block mt-1 w-full" type="text" name="name"
-                        :value="old('name')" required autofocus autocomplete="name" />
-                </div>
+            {{-- User Type --}}
+            <div class="mb-4">
+                <x-label for="user_type" value="{{ __('User Type') }}" class="text-[#5a534a]" />
+                <select id="user_type" name="user_type" class="block mt-1 w-full border border-[#e3e3e0] rounded-md shadow-sm p-2" required>
+                    <option value="">Select User Type</option>
+                    <option value="user" {{ old('user_type') === 'user' ? 'selected' : '' }}>User</option>
+                    <option value="seller" {{ old('user_type') === 'seller' ? 'selected' : '' }}>Seller</option>
+                </select>
+                @error('user_type')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
 
-                {{-- User and Seller --}}
-                <div id="phone_field" class="mt-4 hidden">
-                    <x-label for="phone" value="{{ __('Phone Number') }}" />
-                    <x-input id="phone" class="block mt-1 w-full" type="text" name="phone"
-                        :value="old('phone')" />
-                </div>
+            {{-- Name --}}
+            <div class="mb-4">
+                <x-label for="name" value="{{ __('Name') }}" class="text-[#5a534a]" />
+                <x-input id="name" class="block mt-1 w-full border border-[#e3e3e0] rounded-md p-2" type="text" name="name"
+                    :value="old('name')" required autofocus autocomplete="name" />
+            </div>
 
-                {{-- User Only --}}
-                <div id="gender_field" class="mt-4 hidden">
-                    <x-label for="gender" value="{{ __('Gender') }}" />
-                    <select id="gender" name="gender" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
-                        <option value="">Select Gender</option>
-                        <option value="male" {{ old('gender') === 'male' ? 'selected' : '' }}>Male</option>
-                        <option value="female" {{ old('gender') === 'female' ? 'selected' : '' }}>Female</option>
-                    </select>
-                </div>
+            {{-- Phone (User & Seller) --}}
+            <div id="phone_field" class="mb-4 hidden">
+                <x-label for="phone" value="{{ __('Phone Number') }}" class="text-[#5a534a]" />
+                <x-input id="phone" class="block mt-1 w-full border border-[#e3e3e0] rounded-md p-2" type="text" name="phone"
+                    :value="old('phone')" />
+            </div>
 
-                <div id="birthdate_field" class="mt-4 hidden">
-                    <x-label for="birth_date" value="{{ __('Birth Date') }}" />
-                    <x-input id="birth_date" class="block mt-1 w-full" type="date" name="birth_date"
-                        :value="old('birth_date')" />
-                </div>
+            {{-- User Only Fields --}}
+            <div id="gender_field" class="mb-4 hidden">
+                <x-label for="gender" value="{{ __('Gender') }}" class="text-[#5a534a]" />
+                <select id="gender" name="gender" class="block mt-1 w-full border border-[#e3e3e0] rounded-md p-2">
+                    <option value="">Select Gender</option>
+                    <option value="male" {{ old('gender') === 'male' ? 'selected' : '' }}>Male</option>
+                    <option value="female" {{ old('gender') === 'female' ? 'selected' : '' }}>Female</option>
+                </select>
+            </div>
 
-                {{-- Common Email & Password --}}
-                <div class="mt-4">
-                    <x-label for="email" value="{{ __('Email') }}" />
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email"
-                        :value="old('email')" required autocomplete="username" />
-                </div>
+            <div id="birthdate_field" class="mb-4 hidden">
+                <x-label for="birth_date" value="{{ __('Birth Date') }}" class="text-[#5a534a]" />
+                <x-input id="birth_date" class="block mt-1 w-full border border-[#e3e3e0] rounded-md p-2" type="date" name="birth_date"
+                    :value="old('birth_date')" />
+            </div>
 
-                <div class="mt-4">
-                    <x-label for="password" value="{{ __('Password') }}" />
-                    <x-input id="password" class="block mt-1 w-full" type="password" name="password"
-                        required autocomplete="new-password" />
-                </div>
+            {{-- Email --}}
+            <div class="mb-4">
+                <x-label for="email" value="{{ __('Email') }}" class="text-[#5a534a]" />
+                <x-input id="email" class="block mt-1 w-full border border-[#e3e3e0] rounded-md p-2" type="email" name="email"
+                    :value="old('email')" required autocomplete="username" />
+            </div>
 
-                <div class="mt-4">
-                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                        name="password_confirmation" required autocomplete="new-password" />
-                </div>
+            {{-- Password --}}
+            <div class="mb-4">
+                <x-label for="password" value="{{ __('Password') }}" class="text-[#5a534a]" />
+                <x-input id="password" class="block mt-1 w-full border border-[#e3e3e0] rounded-md p-2" type="password" name="password"
+                    required autocomplete="new-password" />
+            </div>
 
-                {{-- Terms --}}
-                @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                    <div class="mt-4">
-                        <x-label for="terms">
-                            <div class="flex items-center">
-                                <x-checkbox name="terms" id="terms" required />
-                                <div class="ms-2">
-                                    {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="' .
-                                            route('terms.show') .
-                                            '" class="underline text-sm text-gray-600 hover:text-gray-900">' .
-                                            __('Terms of Service') .
-                                            '</a>',
-                                        'privacy_policy' => '<a target="_blank" href="' .
-                                            route('policy.show') .
-                                            '" class="underline text-sm text-gray-600 hover:text-gray-900">' .
-                                            __('Privacy Policy') .
-                                            '</a>',
-                                    ]) !!}
-                                </div>
+            {{-- Confirm Password --}}
+            <div class="mb-4">
+                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" class="text-[#5a534a]" />
+                <x-input id="password_confirmation" class="block mt-1 w-full border border-[#e3e3e0] rounded-md p-2" type="password"
+                    name="password_confirmation" required autocomplete="new-password" />
+            </div>
+
+            {{-- Terms --}}
+            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
+                <div class="mb-4">
+                    <x-label for="terms">
+                        <div class="flex items-center">
+                            <x-checkbox name="terms" id="terms" required />
+                            <div class="ml-2 text-[#5a534a] text-sm">
+                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
+                                    'terms_of_service' => '<a target="_blank" href="' . route('terms.show') . '" class="underline hover:text-[#975519]">' . __('Terms of Service') . '</a>',
+                                    'privacy_policy' => '<a target="_blank" href="' . route('policy.show') . '" class="underline hover:text-[#975519]">' . __('Privacy Policy') . '</a>',
+                                ]) !!}
                             </div>
-                        </x-label>
-                    </div>
-                @endif
-
-                {{-- Submit --}}
-                <div class="flex items-center justify-end mt-4">
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900"
-                        href="{{ route('login') }}">
-                        {{ __('Already registered?') }}
-                    </a>
-
-                    <x-button class="ms-4">
-                        {{ __('Register') }}
-                    </x-button>
+                        </div>
+                    </x-label>
                 </div>
-            </form>
+            @endif
 
-            {{-- JavaScript --}}
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const userTypeSelect = document.getElementById('user_type');
-                    const phoneField = document.getElementById('phone_field');
-                    const genderField = document.getElementById('gender_field');
-                    const birthdateField = document.getElementById('birthdate_field');
+            {{-- Submit --}}
+            <div class="flex items-center justify-end mt-6">
+                <a class="underline text-sm text-[#7a6c5a] hover:text-[#975519]" href="{{ route('login') }}">
+                    {{ __('Already registered?') }}
+                </a>
 
-                    function toggleFields() {
-                        const type = userTypeSelect.value;
-                        const isUser = type === 'user';
-                        const isSeller = type === 'seller';
-
-                        phoneField.classList.toggle('hidden', !isUser && !isSeller);
-                        genderField.classList.toggle('hidden', !isUser);
-                        birthdateField.classList.toggle('hidden', !isUser);
-                    }
-
-                    userTypeSelect.addEventListener('change', toggleFields);
-                    toggleFields(); // Run once on page load
-                });
-            </script>
-        </x-authentication-card>
+                <x-button class="ml-4 bg-[#975519] hover:bg-[#c87a2e] text-white font-semibold rounded-lg px-6 py-2 transition duration-200">
+                    {{ __('Register') }}
+                </x-button>
+            </div>
+        </form>
     </div>
-</x-guest-layout>
+
+    {{-- JavaScript for dynamic fields --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userTypeSelect = document.getElementById('user_type');
+            const phoneField = document.getElementById('phone_field');
+            const genderField = document.getElementById('gender_field');
+            const birthdateField = document.getElementById('birthdate_field');
+
+            function toggleFields() {
+                const type = userTypeSelect.value;
+                const isUser = type === 'user';
+                const isSeller = type === 'seller';
+
+                phoneField.classList.toggle('hidden', !isUser && !isSeller);
+                genderField.classList.toggle('hidden', !isUser);
+                birthdateField.classList.toggle('hidden', !isUser);
+            }
+
+            userTypeSelect.addEventListener('change', toggleFields);
+            toggleFields(); // Run once on page load
+        });
+    </script>
+</body>
+</html>

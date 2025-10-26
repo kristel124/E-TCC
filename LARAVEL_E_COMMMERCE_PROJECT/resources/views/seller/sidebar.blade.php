@@ -1,62 +1,45 @@
-<ul
-    class="navbar-nav sidebar accordion"
-    id="accordionSidebar"
-    style="
-        background: #f2dac5ff; 
-        width: 280px !important;
-        min-width: 280px !important;
-        color: #1b1b18;
-        font-size: 15px;
-        font-weight: 600;
-        border-radius: 0 20px 20px 0;
-        box-shadow: 6px 0 20px rgba(155, 121, 87, 0.25);
-        padding: 15px 0;
-        transition: all 0.3s ease-in-out;
-    "
->
-
-
-    <a class="sidebar-brand d-flex align-items-center justify-content-center"
-        href="#"
-        style="padding: 20px 0; text-decoration: none; color: #1b1b18;">
+<ul class="sidebar navbar-nav accordion" id="accordionSidebar">
+    <!-- Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon">
-            <i class="fas fa-store fa-lg" style="color: #975519;"></i>
+            <i class="fas fa-store fa-lg"></i>
         </div>
         <div class="sidebar-brand-text mx-3">Seller Panel</div>
     </a>
 
-    <hr class="sidebar-divider my-2" style="border-top-color: #e3e3e0;">
+    <hr class="sidebar-divider my-2">
 
     <!-- Dashboard -->
     <li class="nav-item">
         <a class="nav-link active" href="{{ route('seller.seller_dashboard') }}">
-            <i class="fas fa-tachometer-alt" style="color: #975519;"></i>
-            <span class="ml-2">Dashboard</span>
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <!-- Categories -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('seller.categories.index') }}">
+            <i class="fas fa-cube"></i>
+            <span>Categories</span>
         </a>
     </li>
 
     <!-- Products -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('seller.categories.index') }}" data-toggle="collapse" data-target="#collapseProducts"
-           aria-expanded="false" aria-controls="collapseProducts">
-            <i class="fas fa-cube" style="color: #975519;"></i>
-            <span class="ml-2">Categories</span>
-        </a>
-        <a class="nav-link collapsed" href="{{ route('seller.products.index') }}" data-toggle="collapse" data-target="#collapseProducts"
-           aria-expanded="false" aria-controls="collapseProducts">
-            <i class="fas fa-cube" style="color: #975519;"></i>
-            <span class="ml-2">Products</span>
+        <a class="nav-link" href="{{ route('seller.products.index') }}">
+            <i class="fas fa-cube"></i>
+            <span>Products</span>
         </a>
     </li>
 
     <!-- Orders -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
-           aria-expanded="false" aria-controls="collapseOrders">
-            <i class="fas fa-shopping-cart" style="color: #975519;"></i>
-            <span class="ml-2">Orders</span>
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrders">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Orders</span>
         </a>
-        <div id="collapseOrders" class="collapse" aria-labelledby="headingOrders" data-parent="#accordionSidebar">
+        <div id="collapseOrders" class="collapse" data-bs-parent="#accordionSidebar">
             <div class="collapse-inner">
                 <a class="collapse-item" href="#">All Orders</a>
                 <a class="collapse-item" href="#">Pending</a>
@@ -68,104 +51,81 @@
     <!-- Customers -->
     <li class="nav-item">
         <a class="nav-link" href="#">
-            <i class="fas fa-users" style="color: #975519;"></i>
-            <span class="ml-2">Customers</span>
+            <i class="fas fa-users"></i>
+            <span>Customers</span>
         </a>
     </li>
 
-    <hr class="sidebar-divider" style="border-top-color: #e3e3e0;">
+    <hr class="sidebar-divider">
 
-    <!-- Profile -->
     <li class="nav-item mt-auto">
-        <a class="nav-link" href="#">
-            <i class="fas fa-user" style="color: #975519;"></i>
-            <span class="ml-2">Profile</span>
+        <a class="nav-link d-flex align-items-center" href="{{ route('profile.show') }}">
+            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                <img class="rounded-full object-cover me-2" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" style="width:32px; height:32px;">
+            @endif
+            <span>{{ Auth::user()->name }}</span>
         </a>
     </li>
 
-    <!-- Logout -->
+    <!-- Logout Link -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('logout') }}"
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="fas fa-sign-out-alt" style="color: #975519;"></i>
-            <span class="ml-2">Logout</span>
+        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
         </a>
     </li>
-
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
 </ul>
 
-<!-- ✅ Sidebar Beige Theme CSS -->
 <style>
-/* === Neutral Beige Sidebar Theme === */
+.sidebar {
+    background: #f2dac5;
+    width: 280px;
+    min-width: 280px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 0 20px 20px 0;
+    box-shadow: 6px 0 20px rgba(155, 121, 87, 0.25);
+    padding: 15px 0;
+    transition: all 0.3s ease-in-out;
+}
+
 .sidebar a {
-    color: #3f3f3b !important;
+    color: #3f3f3b;
     text-decoration: none;
     transition: all 0.2s ease-in-out;
 }
 
 .sidebar a:hover {
-    background-color: #f8ede3 !important;
-    color: #975519 !important;
+    background-color: #f8ede3;
+    color: #975519;
     border-radius: 10px;
-    padding-left: 20px !important;
+    padding-left: 20px;
 }
 
-.sidebar .sidebar-brand {
-    color: #1b1b18 !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.5px;
-}
-
-.sidebar .sidebar-brand i {
-    color: #975519 !important;
-}
-
-.sidebar .nav-item i {
-    color: #975519 !important;
-    width: 22px;
-}
-
-.sidebar hr.sidebar-divider {
-    border-top: 1px solid #e3e3e0 !important;
-    margin: 0.75rem 1rem;
+.sidebar .nav-link.active {
+    background-color: #e5ba91;
+    color: #1b1b18;
+    border-radius: 10px;
+    box-shadow: inset 0 0 8px rgba(155, 121, 87, 0.25);
 }
 
 .sidebar .collapse-inner {
-    background-color: #fdfdfc !important;
-    border: 1px solid #e3e3e0 !important;
+    background-color: #fdfdfc;
+    border: 1px solid #e3e3e0;
     border-radius: 10px;
     padding: 0.5rem 0.75rem;
 }
 
 .sidebar .collapse-item {
-    color: #3f3f3b !important;
+    color: #3f3f3b;
     font-weight: 500;
-    display: block;
     padding: 6px 14px;
     border-radius: 6px;
 }
 
 .sidebar .collapse-item:hover {
-    background-color: #f3e3d5 !important;
-    color: #975519 !important;
-    border-radius: 6px;
-}
-
-/* Active link style */
-.sidebar .nav-link.active {
-    background-color: #e5ba91 !important;
-    color: #1b1b18 !important;
-    border-radius: 10px;
-    box-shadow: inset 0 0 8px rgba(155, 121, 87, 0.25);
-}
-
-/* Profile & Logout spacing */
-.sidebar .nav-item.mt-auto {
-    margin-top: auto !important;
-}
-
-.sidebar .nav-link span {
-    font-weight: 500;
+    background-color: #f3e3d5;
+    color: #975519;
 }
 </style>

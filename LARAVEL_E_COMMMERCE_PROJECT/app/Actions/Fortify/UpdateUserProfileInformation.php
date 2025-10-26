@@ -1,56 +1,41 @@
 <?php
 
-namespace App\Actions\Fortify;
+namespace App\Http\Livewire\Profile;
 
-use App\Models\User;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
+use Livewire\Component;
+use Laravel\Fortify\Features;
 
-class UpdateUserProfileInformation implements UpdatesUserProfileInformation
+class UpdateProfileInformationForm extends Component
 {
-    /**
-     * Validate and update the given user's profile information.
-     *
-     * @param  array<string, mixed>  $input
-     */
-    public function update(User $user, array $input): void
+    public $state = [];
+
+    public function mount()
     {
-        Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
-        ])->validateWithBag('updateProfileInformation');
-
-        if (isset($input['photo'])) {
-            $user->updateProfilePhoto($input['photo']);
-        }
-
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
-            $this->updateVerifiedUser($user, $input);
-        } else {
-            $user->forceFill([
-                'name' => $input['name'],
-                'email' => $input['email'],
-            ])->save();
-        }
+        // Initialize state with current user data
+        $this->state = [
+            'name' => auth()->user()->name,
+            'email' => auth()->user()->email,
+            'phone' => auth()->user()->phone, // pre-fill phone number
+        ];
     }
 
-    /**
-     * Update the given verified user's profile information.
-     *
-     * @param  array<string, string>  $input
-     */
-    protected function updateVerifiedUser(User $user, array $input): void
+    public function updateProfileInformation()
     {
-        $user->forceFill([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'email_verified_at' => null,
-        ])->save();
+        // Validation and update logic here (already handled in Fortify action)
+        $this->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:20'],
+        ]);
 
-        $user->sendEmailVerificationNotification();
+        // Call the Fortify action to update
+        app(\App\Actions\Fortify\UpdateUserProfileInformation::class)->update(auth()->user(), $this->state);
+
+        $this->emit('saved');
+    }
+
+    public function render()
+    {
+        return view('profile.update-profile-information-form');
     }
 }

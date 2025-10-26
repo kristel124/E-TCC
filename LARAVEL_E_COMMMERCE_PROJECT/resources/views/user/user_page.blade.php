@@ -51,7 +51,7 @@
   </nav>
 
   <!-- Shop Section -->
-  <section id="shop" class="px-8 md:px-20 py-24 mt-24 bg-[#f4ede4]">
+  <section id="shop" class="px-5 md:px-10 py-24 mt-22 bg-[#f4ede4]">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
       <div>
         <h3 class="text-3xl font-bold mb-2">Bags That Speak Your Style</h3>
@@ -97,7 +97,7 @@
             </a>
 
             <!-- Add to Cart Button -->
-            <form action="{{ route('user.cart.add') }}" method="POST" class="w-full">
+            <form action="#" method="POST" class="w-full">
               @csrf
               <input type="hidden" name="product_id" value="{{ $product->id }}">
               <button 

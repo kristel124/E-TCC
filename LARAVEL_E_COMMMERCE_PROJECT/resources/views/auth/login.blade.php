@@ -1,66 +1,73 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Tcc Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f5f1eb] text-[#2e2b26] font-sans flex items-center justify-center min-h-screen">
 
+    <div class="w-full max-w-md bg-[#fffaf5] p-8 rounded-xl shadow-lg">
+        
+        {{-- Logo Slot --}}
+        <div class="mb-6 text-center">
+            <h1 class="text-2xl font-bold text-[#975519]">Log in</h1>
+        </div>
+
+        {{-- Validation Errors --}}
         <x-validation-errors class="mb-4" />
 
-        @session('status')
+        {{-- Session Status --}}
+        @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">
-                {{ $value }}
+                {{ session('status') }}
             </div>
-        @endsession
+        @endif
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" class="text-gray-700" />
+            {{-- Email --}}
+            <div class="mb-4">
+                <x-label for="email" value="{{ __('Email') }}" class="text-[#5a534a]" />
                 <x-input 
-                    id="email" 
-                    class="block mt-1 w-full border border-[#e3e3e0]  focus:border-[#c6a77b] focus:ring-1 focus:ring-[#e3c292] rounded-lg"
-                    type="email" 
-                    name="email" 
-                    :value="old('email')" 
-                    required 
-                    autofocus 
-                    autocomplete="username" 
+                    id="email"
+                    type="email"
+                    name="email"
+                    :value="old('email')"
+                    required
+                    autofocus
+                    autocomplete="username"
+                    class="block mt-1 w-full border border-[#e3e3e0] focus:border-[#c6a77b] focus:ring-1 focus:ring-[#e3c292] rounded-lg bg-[#fdf7ef] text-[#2e2b26] p-2"
                 />
             </div>
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" class="text-gray-700" />
-                <x-input 
-                    id="password" 
-                    class="block mt-1 w-full border border-[#e3e3e0] bg-[#fffaf5] focus:border-[#c6a77b] focus:ring-1 focus:ring-[#e3c292] rounded-lg"
-                    type="password" 
-                    name="password" 
-                    required 
-                    autocomplete="current-password" 
+            {{-- Password --}}
+            <div class="mb-4">
+                <x-label for="password" value="{{ __('Password') }}" class="text-[#5a534a]" />
+                <x-input
+                    id="password"
+                    type="password"
+                    name="password"
+                    required
+                    autocomplete="current-password"
+                    class="block mt-1 w-full border border-[#e3e3e0] focus:border-[#c6a77b] focus:ring-1 focus:ring-[#e3c292] rounded-lg bg-[#fdf7ef] text-[#2e2b26] p-2"
                 />
             </div>
 
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center text-gray-700">
+            {{-- Remember Me --}}
+            <div class="mb-4">
+                <label for="remember_me" class="flex items-center text-[#5a534a]">
                     <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm">{{ __('Remember me') }}</span>
+                    <span class="ml-2 text-sm">{{ __('Remember me') }}</span>
                 </label>
             </div>
 
-            {{-- Bottom Signup Prompt --}}
-            <div class="mt-8 text-center">
-                <p class="text-gray-700">
-                    Don't have an account?
-                    <a href="{{ route('register') }}" class="text-[#975519] font-semibold hover:text-[#c87a2e] transition duration-200">
-                        Sign up
-                    </a>
-                </p>
-            </div>
-
-            <div class="flex items-center justify-end mt-4 space-x-4">
+            {{-- Actions --}}
+            <div class="flex items-center justify-between mt-6">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#975519]" 
+                    <a class="text-sm text-[#7a6c5a] hover:text-[#975519] transition duration-200" 
                        href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
@@ -70,6 +77,18 @@
                     {{ __('Log in') }}
                 </x-button>
             </div>
+
+            {{-- Register Link --}}
+            <div class="mt-8 text-center">
+                <p class="text-[#5a534a]">
+                    Don't have an account?
+                    <a href="{{ route('register') }}" class="text-[#975519] font-semibold hover:text-[#c87a2e] transition duration-200">
+                        Sign up
+                    </a>
+                </p>
+            </div>
         </form>
-    </x-authentication-card>
-</x-guest-layout>
+    </div>
+
+</body>
+</html>

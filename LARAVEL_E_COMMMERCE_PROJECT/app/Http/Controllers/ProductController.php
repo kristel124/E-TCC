@@ -20,7 +20,6 @@ class ProductController extends Controller
         $monthlyEarnings = 0;
         $totalOrdersToday = 0;
 
-        // Low stock products
         $lowStockProducts = Product::where('seller_id', $sellerId)
             ->where('stock', '<=', 10)
             ->get();
@@ -36,7 +35,7 @@ class ProductController extends Controller
 
         $newCustomersCount = 0;
 
-        return view('seller.seller_dashboard', compact(
+        return view('seller.dashboard', compact(
             'monthlyEarnings',
             'totalOrdersToday',
             'lowStockProducts',

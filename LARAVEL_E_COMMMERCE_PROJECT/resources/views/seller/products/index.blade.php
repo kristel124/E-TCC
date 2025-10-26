@@ -6,11 +6,11 @@
     {{-- Page Header and Add Button --}}
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
         <h2 class="text-3xl font-bold text-[#1b1b18] mb-4 sm:mb-0">
-            <i class="fas fa-box-open mr-3" style="color: #975519;"></i>Products
+            <i class="fas fa-box-open mr-3" style="color: #c5874eff;"></i>Products
         </h2>
         <a href="{{ route('seller.products.create') }}"
            class="inline-flex items-center px-6 py-2.5 rounded-xl text-white font-semibold transition shadow-md"
-           style="background-color: #975519; hover-bg: #c87a2e;">
+           style="background-color: #ab6e36ff; hover-bg: #ce9255ff;">
             <i class="fas fa-plus mr-2"></i> Add New Product
         </a>
     </div>
