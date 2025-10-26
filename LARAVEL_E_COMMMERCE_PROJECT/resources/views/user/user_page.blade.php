@@ -91,13 +91,13 @@
             <p class="text-[#5a5245]">₱{{ number_format($product->price, 2) }}</p>
 
             <!-- View Details Button -->
-            <a href="#" 
-               class="w-full text-center bg-[#c87a2e] text-white py-2 rounded-xl hover:bg-[#a55d1e] transition text-sm">
+            <a href="{{ route('user.product.show', $product->id) }}" 
+              class="w-full text-center bg-[#c87a2e] text-white py-2 rounded-xl hover:bg-[#a55d1e] transition text-sm">
               View Details
             </a>
 
             <!-- Add to Cart Button -->
-            <form action="#" method="POST" class="w-full">
+            <form action="{{ route('user.cart.store') }}" method="POST" class="w-full">
               @csrf
               <input type="hidden" name="product_id" value="{{ $product->id }}">
               <button 

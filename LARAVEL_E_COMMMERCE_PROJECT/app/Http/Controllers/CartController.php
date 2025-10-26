@@ -3,71 +3,45 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class CartController extends Controller
 {
-    // Display cart
+
     public function index()
     {
-        $cart = session()->get('cart', []); // Get cart or empty array
-
-        // Calculate total
-        $total = 0;
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
-        }
-
-        return view('user.cart.index', compact('cart', 'total'));
+        $cart = session()->get('cart', []);
+        return view('user.cart.index', compact('cart'));
     }
 
-    // Add item to cart
-    public function add(Request $request)
+    // ➕ Add to cart
+    public function store(Request $request)
     {
+        $product = Product::findOrFail($request->product_id);
+
         $cart = session()->get('cart', []);
 
-        $id = $request->id;
-        $quantity = $request->quantity ?? 1;
-
-        // Example product data (you might fetch from DB)
-        $product = [
-            'name' => $request->name,
-            'price' => $request->price,
-            'image' => $request->image
-        ];
-
-        // If item already exists, increase quantity
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity'] += $quantity;
+        if (isset($cart[$product->id])) {
+            $cart[$product->id]['quantity']++;
         } else {
-            $cart[$id] = array_merge($product, ['quantity' => $quantity]);
+            $cart[$product->id] = [
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->image
+            ];
         }
 
         session()->put('cart', $cart);
-
         return redirect()->back()->with('success', 'Product added to cart!');
     }
 
-    // Update quantity
-    public function update(Request $request)
+    // ❌ Remove a single item
+    public function remove($id)
     {
         $cart = session()->get('cart', []);
-        $id = $request->id;
 
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity'] = max(1, (int)$request->quantity); // ensure quantity >= 1
-            session()->put('cart', $cart);
-        }
-
-        return redirect()->back()->with('success', 'Cart updated!');
-    }
-
-    // Remove item
-    public function remove(Request $request)
-    {
-        $cart = session()->get('cart', []);
-        $id = $request->id;
-
-        if(isset($cart[$id])) {
+        if (isset($cart[$id])) {
             unset($cart[$id]);
             session()->put('cart', $cart);
         }
@@ -75,11 +49,22 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Item removed from cart!');
     }
 
-    // Clear cart
+    // 🧹 Clear entire cart
     public function clear()
     {
         session()->forget('cart');
+        return redirect()->back()->with('success', 'Cart cleared successfully!');
+    }
 
-        return redirect()->back()->with('success', 'Cart cleared!');
+    public function update(Request $request, $id)
+    {
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity'] = $request->quantity;
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->back()->with('success', 'Cart updated successfully!');
     }
 }

@@ -39,18 +39,11 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/user_page', [ProductController::class, 'showProducts'])->name('user_page');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
-    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
-    Route::post('/cart/clear', function () {
-        session()->forget('cart');
-        return redirect()->route('user.cart.index')->with('success', 'Cart cleared!');
-    })->name('cart.clear');
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+    Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
-    Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
-    Route::post('/checkout', [CheckoutController::class, 'placeOrder'])->name('checkout.place');
-
-    Route::get('/orders', [UserController::class, 'orders'])->name('orders');
 });
 
 // SELLER ROUTES 
@@ -63,8 +56,10 @@ Route::middleware(['auth', 'role:seller'])->prefix('seller')->name('seller.')->g
 // ADMIN ROUTES 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::view('/dashboard', 'admin.admin_dashboard')->name('admin_dashboard');
-
 });
+
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('user.product.show');
+Route::post('/cart', [CartController::class, 'store'])->name('user.cart.store');
 
 
 

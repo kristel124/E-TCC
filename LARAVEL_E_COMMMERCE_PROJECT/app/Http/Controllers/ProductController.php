@@ -192,11 +192,12 @@ class ProductController extends Controller
     // -------------------------------
     // Show product details
     // -------------------------------
-    public function show(Product $product)
+    public function show($id)
     {
-        $this->authorizeProduct($product);
-        return view('seller.products.show', compact('product'));
+        $product = Product::findOrFail($id);
+        return view('user.product_details', compact('product'));
     }
+
 
     // -------------------------------
     // Show all products for users
