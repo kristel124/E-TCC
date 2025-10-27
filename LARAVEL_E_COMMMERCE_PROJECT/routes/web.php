@@ -44,6 +44,10 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
+    Route::post('/checkout/shipping', [CheckoutController::class, 'shipping'])->name('checkout.shipping');
+    Route::post('/checkout/summary', [CheckoutController::class, 'Summary'])->name('checkout.summary');
+    Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm');
+
 });
 
 // SELLER ROUTES 

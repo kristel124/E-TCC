@@ -6,45 +6,60 @@ use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
-    public function shippingForm()
+    public function shipping(Request $request)
     {
-        $cart = session()->get('cart', []);
-        if (empty($cart)) {
-            return redirect()->route('user.cart.index')->with('error', 'Your cart is empty.');
+        $selectedItems = $request->input('selected_items', []);
+
+        if (empty($selectedItems)) {
+            return redirect()->back()->with('error', 'Please select at least one item.');
         }
-        return view('user.checkout.shipping', compact('cart'));
+
+        return view('user.checkout.shipping', ['selected_items' => $selectedItems]);
     }
 
-    public function orderSummary(Request $request)
+    public function summary(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'required|string|max:500',
-            'city' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:20',
-            'phone' => 'required|string|max:20',
+        $selectedItems = json_decode($request->input('selected_items'), true);
+
+        // Ensure it's always an array
+        if (!is_array($selectedItems)) {
+            $selectedItems = [$selectedItems];
+        }
+
+        if (empty($selectedItems)) {
+            return redirect()->back()->with('error', 'Please select at least one item.');
+        }
+
+        $shipping = $request->only(['name', 'phone', 'address']);
+
+        return view('user.checkout.summary', [
+            'selected_items' => $selectedItems,
+            'shipping' => $shipping,
         ]);
-
-        session(['shipping' => $validated]);
-
-        $cart = session()->get('cart', []);
-        $total = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
-
-        return view('user.checkout.summary', compact('cart', 'validated', 'total'));
     }
 
-    public function confirmOrder()
-    {
-        $cart = session()->get('cart', []);
-        $shipping = session()->get('shipping');
 
-        if (empty($cart) || empty($shipping)) {
-            return redirect()->route('user.cart.index')->with('error', 'Missing checkout information.');
+    public function confirm(Request $request)
+    {
+        // Decode the hidden JSON inputs
+        $shipping = json_decode($request->input('shipping'), true);
+        $selectedItems = json_decode($request->input('selected_items'), true);
+
+        // Safety check
+        if (empty($selectedItems)) {
+            return redirect()->route('user.cart.index')->with('error', 'No items found for checkout.');
         }
 
-        // Here you can store the order in the database later
-        session()->forget(['cart', 'shipping']); // clear
+        // Simulate saving order (you can replace this with real DB save later)
+        // Example: Order::create([...]);
+        
+        // Clear the cart after confirmation (optional)
+        session()->forget('cart');
 
-        return redirect()->route('user.user_page')->with('success', 'Order placed successfully!');
+        return view('checkout.confirm', [
+            'shipping' => $shipping,
+            'selected_items' => $selectedItems,
+        ]);
     }
+
 }

@@ -110,7 +110,7 @@
         </form>
 
         <!-- Checkout Selected -->
-        <form id="checkoutForm" action="#" method="POST">
+        <form id="checkoutForm" action="{{ route('user.checkout.shipping') }}" method="POST">
           @csrf
           <button type="submit" class="bg-[#a58c63] text-white px-5 py-2 rounded-lg hover:bg-[#8d7753] transition">
             Checkout Selected
