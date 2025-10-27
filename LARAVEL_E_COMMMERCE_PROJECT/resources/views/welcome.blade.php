@@ -111,57 +111,6 @@
     </div>
   </section>
 
-  <!-- Featured Products Section 2 -->
-  <section id="shop" class="px-10 md:px-20 py-14 bg-[#f4ede4]">
-    <div class="grid md:grid-cols-4 gap-8">
-      
-      <!-- Bag 1 -->
-      <div class="bg-white p-5 rounded-2xl shadow hover:shadow-lg transition">
-        <img src="{{ asset('images/Screenshot 2025-10-22 014139.png') }}" alt="Bag 1" class="rounded-xl mb-4">
-        <h4 class="font-semibold text-lg">Classic Leather Tote</h4>
-        <p class="text-[#5a5245] mt-1 mb-3">₱89.99</p>
-        <div class="flex flex-col md:flex-row gap-3">
-          <button class="bg-[#a58c63] text-white px-4 py-2 rounded-xl hover:bg-[#8d7753] transition w-full md:w-auto">Add to Cart</button>
-          <a href="#" class="border border-[#a58c63] text-[#a58c63] px-4 py-2 rounded-xl hover:bg-[#a58c63] hover:text-white transition w-full md:w-auto text-center">View Details</a>
-        </div>
-      </div>
-
-      <!-- Bag 2 -->
-      <div class="bg-white p-5 rounded-2xl shadow hover:shadow-lg transition">
-        <img src="{{ asset('images/Screenshot 2025-10-22 014433.png') }}" alt="Bag 2" class="rounded-xl mb-4">
-        <h4 class="font-semibold text-lg">Minimalist Crossbody</h4>
-        <p class="text-[#5a5245] mt-1 mb-3">₱74.99</p>
-        <div class="flex flex-col md:flex-row gap-3">
-          <button class="bg-[#a58c63] text-white px-4 py-2 rounded-xl hover:bg-[#8d7753] transition w-full md:w-auto">Add to Cart</button>
-          <a href="#" class="border border-[#a58c63] text-[#a58c63] px-4 py-2 rounded-xl hover:bg-[#a58c63] hover:text-white transition w-full md:w-auto text-center">View Details</a>
-        </div>
-      </div>
-
-      <!-- Bag 3 -->
-      <div class="bg-white p-5 rounded-2xl shadow hover:shadow-lg transition">
-        <img src="{{ asset('images/tote-bags-fall-2022-back-to-work-habituallychic-004.jpeg') }}" alt="Bag 3" class="rounded-xl mb-4">
-        <h4 class="font-semibold text-lg">Chic Handbag</h4>
-        <p class="text-[#5a5245] mt-1 mb-3">₱99.99</p>
-        <div class="flex flex-col md:flex-row gap-3">
-          <button class="bg-[#a58c63] text-white px-4 py-2 rounded-xl hover:bg-[#8d7753] transition w-full md:w-auto">Add to Cart</button>
-          <a href="#" class="border border-[#a58c63] text-[#a58c63] px-4 py-2 rounded-xl hover:bg-[#a58c63] hover:text-white transition w-full md:w-auto text-center">View Details</a>
-        </div>
-      </div>
-
-      <!-- Bag 4 -->
-      <div class="bg-white p-5 rounded-2xl shadow hover:shadow-lg transition">
-        <img src="{{ asset('images/bag4.png') }}" alt="Bag 4" class="rounded-xl mb-4">
-        <h4 class="font-semibold text-lg">Elegant Shoulder Bag</h4>
-        <p class="text-[#5a5245] mt-1 mb-3">₱109.99</p>
-        <div class="flex flex-col md:flex-row gap-3">
-          <button class="bg-[#a58c63] text-white px-4 py-2 rounded-xl hover:bg-[#8d7753] transition w-full md:w-auto">Add to Cart</button>
-          <a href="#" class="border border-[#a58c63] text-[#a58c63] px-4 py-2 rounded-xl hover:bg-[#a58c63] hover:text-white transition w-full md:w-auto text-center">View Details</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   @include('components.footer')
 
 </body>

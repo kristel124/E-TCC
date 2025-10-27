@@ -14,14 +14,14 @@
         <div class="bg-[#fdf6ec] rounded-2xl shadow-md p-6 mb-10">
             <h3 class="text-xl font-semibold mb-4 text-[#5a5245]">Personal Information</h3>
             <ul class="text-[#7a6b5a] space-y-2">
-                <li><strong>Name:</strong> {{ auth()->user()->name }}</li>
-                <li><strong>Email:</strong> {{ auth()->user()->email }}</li>
+                <li><strong>Name:</strong> {{ auth()->user()->name ?? 'N/A' }}</li>
+                <li><strong>Email:</strong> {{ auth()->user()->email ?? 'N/A' }}</li>
                 <li><strong>Phone:</strong> {{ auth()->user()->phone ?? 'N/A' }}</li>
                 <li><strong>Gender:</strong> 
-                    {{ auth()->user()->gender == 'Male' ? 'Male' : (auth()->user()->gender == 'Female' ? 'Female' : 'N/A') }}
+                    {{ in_array(strtolower(auth()->user()->gender), ['male','m']) ? 'Male' : (in_array(strtolower(auth()->user()->gender), ['female','f']) ? 'Female' : 'N/A') }}
                 </li>
                 <li><strong>Birthday:</strong> 
-                    {{ auth()->user()->birthday ? \Carbon\Carbon::parse(auth()->user()->birthday)->format('M d, Y') : 'N/A' }}
+                    {{ auth()->user()->birth_date ? \Carbon\Carbon::parse(auth()->user()->birth_date)->format('M d, Y') : 'N/A' }}
                 </li>
             </ul>
 
