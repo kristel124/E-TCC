@@ -38,14 +38,10 @@
 
       <!-- User -->
       @auth
-      <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <button 
-          type="submit" 
-          class="bg-[#975519] text-white px-3 py-2 rounded hover:bg-[#c87a2e] text-sm transition">
-          {{ Auth::user()->name }}
-        </button>
-      </form>
+      <a href="{{ route('user.profile') }}" 
+        class="bg-[#975519] text-white px-3 py-2 rounded hover:bg-[#c87a2e] text-sm transition">
+        {{ Auth::user()->name }}
+      </a>
       @endauth
     </div>
   </nav>
@@ -90,22 +86,25 @@
             <h4 class="font-semibold text-lg truncate w-full">{{ $product->name }}</h4>
             <p class="text-[#5a5245]">₱{{ number_format($product->price, 2) }}</p>
 
-            <!-- View Details Button -->
-            <a href="{{ route('user.product.show', $product->id) }}" 
-              class="w-full text-center bg-[#c87a2e] text-white py-2 rounded-xl hover:bg-[#a55d1e] transition text-sm">
-              View Details
-            </a>
+            <div class="flex gap-2 mt-2">
+              <!-- Add to Cart Button -->
+              <form action="{{ route('user.cart.store') }}" method="POST" class="flex-1">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <button 
+                  type="submit" 
+                  class="w-full bg-[#b29670] text-white py-2 rounded-xl hover:bg-[#8d7753] transition font-medium text-sm">
+                  Add to Cart
+                </button>
+              </form>
 
-            <!-- Add to Cart Button -->
-            <form action="{{ route('user.cart.store') }}" method="POST" class="w-full">
-              @csrf
-              <input type="hidden" name="product_id" value="{{ $product->id }}">
-              <button 
-                type="submit" 
-                class="w-full bg-[#a58c63] text-white px-4 py-2 rounded-xl hover:bg-[#8d7753] transition text-sm">
-                Add to Cart
-              </button>
-            </form>
+              <!-- View Details Button -->
+              <a href="{{ route('user.product.show', $product->id) }}" 
+                class="flex-1 text-center border border-[#b29670] text-[#b29670] py-2 rounded-xl hover:bg-[#b29670] hover:text-white transition font-medium text-sm">
+                View Details
+              </a>
+            </div>
+
           </div>
         </div>
       @empty

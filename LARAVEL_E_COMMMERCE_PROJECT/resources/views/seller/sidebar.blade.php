@@ -59,7 +59,7 @@
     <hr class="sidebar-divider">
 
     <li class="nav-item mt-auto">
-        <a class="nav-link d-flex align-items-center" href="{{ route('profile.show') }}">
+        <a class="nav-link d-flex align-items-center" href="#">
             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                 <img class="rounded-full object-cover me-2" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" style="width:32px; height:32px;">
             @endif

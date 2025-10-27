@@ -37,6 +37,7 @@ Route::get('/dashboard', function () {
 //  USER ROUTES 
 Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/user_page', [ProductController::class, 'showProducts'])->name('user_page');
+    Route::get('/profile', [ProductController::class, 'profile'])->name('profile');
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
@@ -53,6 +54,7 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
 // SELLER ROUTES 
 Route::middleware(['auth', 'role:seller'])->prefix('seller')->name('seller.')->group(function () {
     Route::get('/dashboard', [ProductController::class, 'dashboard'])->name('seller_dashboard');
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
 });

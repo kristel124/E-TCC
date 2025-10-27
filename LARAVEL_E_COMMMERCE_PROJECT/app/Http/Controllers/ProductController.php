@@ -45,6 +45,13 @@ class ProductController extends Controller
         ));
     }
 
+    public function profile()
+    {
+        $user = Auth::user();
+        $orders = $user->orders()->latest()->get();
+
+        return view('user.profile', compact('user', 'orders'));
+    }
     // -------------------------------
     // Display all seller products
     // -------------------------------

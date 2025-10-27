@@ -25,7 +25,7 @@
         <!-- Low Stock Products -->
         <div class="mb-8">
             <h2 class="text-xl font-semibold text-gray-700 mb-4">Low Stock Products ({{ $lowStockCount }})</h2>
-            @if($lowStockProducts->count() > 0)
+            @if($lowStockProducts->count() < 5)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach($lowStockProducts as $product)
                 <div class="bg-white rounded-2xl shadow p-4 flex items-center space-x-4">

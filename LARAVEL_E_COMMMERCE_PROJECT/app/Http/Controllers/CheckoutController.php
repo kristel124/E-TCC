@@ -19,47 +19,59 @@ class CheckoutController extends Controller
 
     public function summary(Request $request)
     {
-        $selectedItems = json_decode($request->input('selected_items'), true);
+        $selectedItemsIds = json_decode($request->input('selected_items'), true);
 
-        // Ensure it's always an array
-        if (!is_array($selectedItems)) {
-            $selectedItems = [$selectedItems];
+        if (!is_array($selectedItemsIds)) {
+            $selectedItemsIds = [$selectedItemsIds];
+        }
+
+        $cart = session('cart', []);
+        $selectedItems = [];
+
+        foreach ($selectedItemsIds as $id) {
+            if (isset($cart[$id])) {
+                $selectedItems[] = [
+                    'id' => $id,
+                    'name' => $cart[$id]['name'],
+                    'price' => $cart[$id]['price'],
+                    'quantity' => $cart[$id]['quantity'],
+                ];
+            }
         }
 
         if (empty($selectedItems)) {
-            return redirect()->back()->with('error', 'Please select at least one item.');
+            return redirect()->route('user.cart.index')->with('error', 'No valid items found in cart.');
         }
 
         $shipping = $request->only(['name', 'phone', 'address']);
 
+        // Calculate total
+        $total = collect($selectedItems)->sum(function($item){
+            return $item['price'] * $item['quantity'];
+        });
+
         return view('user.checkout.summary', [
             'selected_items' => $selectedItems,
             'shipping' => $shipping,
+            'total' => $total,
         ]);
     }
 
-
     public function confirm(Request $request)
     {
-        // Decode the hidden JSON inputs
         $shipping = json_decode($request->input('shipping'), true);
         $selectedItems = json_decode($request->input('selected_items'), true);
 
-        // Safety check
         if (empty($selectedItems)) {
             return redirect()->route('user.cart.index')->with('error', 'No items found for checkout.');
         }
 
-        // Simulate saving order (you can replace this with real DB save later)
-        // Example: Order::create([...]);
-        
-        // Clear the cart after confirmation (optional)
-        session()->forget('cart');
+        // Here you can save the order to DB if needed
+        session()->forget('cart'); // clear cart
 
-        return view('checkout.confirm', [
+        return view('user.checkout.confirm', [
             'shipping' => $shipping,
             'selected_items' => $selectedItems,
         ]);
     }
-
 }
